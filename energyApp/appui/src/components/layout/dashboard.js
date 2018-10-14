@@ -3,6 +3,8 @@ import LineChart from 'react-linechart';
 import '../../../node_modules/react-linechart/dist/styles.css';
 import ReactTable from 'react-table';
 import {Link} from 'react-router-dom'; 
+import axios from "../../../node_modules/axios";
+import Parser from 'html-react-parser';
 
 
 class Dashboard extends Component {
