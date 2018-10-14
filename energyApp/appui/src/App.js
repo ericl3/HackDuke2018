@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import Login from "./components/layout/login";
 import Register from "./components/layout/register";
+import Dashboard from "./components/layout/dashboard";
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <div className="App">
           <Route exact path ="/" component = {Login} />
           <Route exact path ="/register" component = {Register} />
+          <Route exact path ="/dashboard" component = {Dashboard} />
         </div>
       </Router>
     );
