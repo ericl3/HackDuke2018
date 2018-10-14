@@ -1,129 +1,90 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
-import classnames from "classnames";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
-class Register extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
-      email: "",
+      username: "",
       password: "",
-      password2: "",
-      errors: {}
+      passconfirm: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+  handleClick(){
+      if (this.state.password == this.state.passconfirm) {
+      axios.post("http://localhost:8080/users", {
+          name: this.state.name,
+          username: this.state.username,
+          password: this.state.password
+      })
+      .then(response => console.log(response));
     }
   }
 
   onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-
-    const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2
-    };
-
-    this.props.registerUser(newUser, this.props.history);
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
-    const { errors } = this.state; // const errors = this.state.errors
-
     return (
-      <div className="register">
+      <div className="login">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your DevConnector account
+                Create your account 
               </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className="form-group">
+              <form>
+              <div className="form-group">
                   <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.name
-                    })}
-                    placeholder="Name"
+                    type="name"
+                    className="form-control form-control-lg"
+                    placeholder="name Address"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
                   />
-                  {errors.name && (
-                    <div className="invalid-feedback">{errors.name}</div>
-                  )}
                 </div>
                 <div className="form-group">
                   <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
+                    type="username"
+                    className="form-control form-control-lg"
+                    placeholder="username Address"
+                    name="username"
+                    value={this.state.username}
                     onChange={this.onChange}
                   />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use
-                    a Gravatar email
-                  </small>
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
-                    })}
+                    className="form-control form-control-lg"
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
                   />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
                 </div>
                 <div className="form-group">
                   <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password2
-                    })}
+                    type="passconfirm"
+                    className="form-control form-control-lg"
                     placeholder="Confirm Password"
-                    name="password2"
-                    value={this.state.password2}
+                    name="passconfirm"
+                    value={this.state.passconfirm}
                     onChange={this.onChange}
                   />
-                  {errors.password2 && (
-                    <div className="invalid-feedback">{errors.password2}</div>
-                  )}
                 </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <button type="button" className="btn btn-info btn-block mt-4" onClick = {this.handleClick}>
+                    Register 
+                </button>
               </form>
             </div>
           </div>
@@ -133,18 +94,4 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+export default Login;
