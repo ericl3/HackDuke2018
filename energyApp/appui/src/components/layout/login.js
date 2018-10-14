@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import {Redirect} from "react-router";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      redirect: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -19,7 +21,9 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password
       })
-      .then(response => console.log(response));
+      .then(res => {
+        this.setState({redirect:true});
+      })
   }
 
   onChange(e) {
@@ -38,6 +42,10 @@ class Login extends Component {
   }
 
   render() {
+    const {redirect} = this.state;
+    if (redirect) {
+      return <Redirect to = "/dashboard"/>;
+    }
     return (
       <div className="login">
         <div className="container">
