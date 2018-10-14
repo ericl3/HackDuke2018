@@ -52,10 +52,9 @@ router.post('/', function(req, res) {
         else{
             let hashedPassword = await bcrypt.hash(req.body.password, 8);
             User.create({
+                name: req.body.name, 
                 username: req.body.username,
-                password: hashedPassword,
-                breaks: [],
-                courses: []
+                password: hashedPassword
             }, function(err, user) {
                 if(err){
                     return status(500).send("There was a problem adding the information to the database.");
@@ -108,14 +107,14 @@ router.get('/', function(req, res) {
         if(err){
             return res.status(500).send(err);
         }
-        User.findById(decoded.user._id, function(err, userWithPosts){
+        User.findById(decoded.user._id, function(err, user){
             if(err){
                 return res.status(500).send("There was a problem finding the user");
             }
             if(!user){
                 return res.status(404).send("No user found.");
             }
-            return res.status(200).send(userWithPosts);
+            return res.status(200).send(user);
         })
     });
 })
