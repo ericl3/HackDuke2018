@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
                     },
                     'shh',
                 {
-                    issuer: 'paul',
+                    issuer: 'energyApp',
                     audience: 'tbd'
                 })
                 return res.send(jtoken);

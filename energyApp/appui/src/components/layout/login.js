@@ -6,7 +6,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      username: "",
       password: ""
     };
     this.onChange = this.onChange.bind(this);
@@ -15,7 +15,10 @@ class Login extends Component {
   }
 
   handleClick(){
-      axios.post("http://localhost:8080/users/session")
+      axios.post("http://localhost:8080/users/session/", {
+        username: this.state.username,
+        password: this.state.password
+      })
       .then(response => console.log(response));
   }
 
@@ -27,7 +30,7 @@ class Login extends Component {
     e.preventDefault();
 
     const user = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
 
@@ -47,11 +50,10 @@ class Login extends Component {
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
-                    type="email"
                     className="form-control form-control-lg"
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
+                    placeholder="Username"
+                    name="username"
+                    value={this.state.username}
                     onChange={this.onChange}
                   />
                 </div>
