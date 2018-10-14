@@ -22,6 +22,7 @@ class Login extends Component {
         password: this.state.password
       })
       .then(res => {
+        localStorage.setItem("jwt", res.data);
         this.setState({redirect:true});
       })
   }

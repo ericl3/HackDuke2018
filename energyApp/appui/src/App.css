@@ -29,6 +29,10 @@
 .title{
   text-align: center;
 }
+
+.logout {
+  padding-left: 95px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
