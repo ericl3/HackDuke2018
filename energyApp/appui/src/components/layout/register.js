@@ -12,7 +12,6 @@ class Login extends Component {
       passconfirm: "",
     };
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -46,7 +45,7 @@ class Login extends Component {
                   <input
                     type="name"
                     className="form-control form-control-lg"
-                    placeholder="name Address"
+                    placeholder="Name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
@@ -56,7 +55,7 @@ class Login extends Component {
                   <input
                     type="username"
                     className="form-control form-control-lg"
-                    placeholder="username Address"
+                    placeholder="Username"
                     name="username"
                     value={this.state.username}
                     onChange={this.onChange}
@@ -74,7 +73,7 @@ class Login extends Component {
                 </div>
                 <div className="form-group">
                   <input
-                    type="passconfirm"
+                    type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
                     name="passconfirm"
